@@ -1,0 +1,38 @@
+Implementação Prática em Kotlin:
+
+fun main() {
+    val listaOrdenada = intArrayOf(10, 22, 35, 47, 50, 68, 75, 88, 91, 100)
+    val numeroAlvo = 75 // O que o agente precisa encontrar
+    
+    // Estado interno / Memória do agente (limites do ambiente)
+    var baixo = 0
+    var alto = listaOrdenada.size - 1
+    var encontrado = false
+
+    println("[Agente]: Iniciando busca racional pelo número $numeroAlvo...")
+
+    while (baixo <= alto) {
+        // Sensores calculando a percepção atual
+        val meio = (baixo + alto) / 2
+        val valorPercebido = listaOrdenada[meio]
+
+        println("[Sensor]: Analisando índice $meio (Valor encontrado: $valorPercebido)")
+
+        // Regra Racional de Tomada de Decisão
+        if (valorPercebido == numeroAlvo) {
+            println("[Atuador]: Alvo ENCONTRADO no índice $meio!")
+            encontrado = true
+            break
+        } else if (valorPercebido > numeroAlvo) {
+            println("[Agente]: $valorPercebido é muito alto. Reduzindo limite superior.")
+            alto = meio - 1
+        } else {
+            println("[Agente]: $valorPercebido é muito baixo. Elevando limite inferior.")
+            baixo = meio + 1
+        }
+    }
+
+    if (!encontrado) {
+        println("[Atuador]: Alvo não existe neste ambiente.")
+    }
+}
